@@ -81,11 +81,18 @@ void reset_to_start() {
   face_east();
 }
 
+void find_ball_on_line() {
+  // Function will move Charles along line, until a cell with a ball in it is found.
+  while(!on_ball()) {
+    step();
+  }
+}
+
 void test_agent() {
 
 }
 
-void string_agent() {
+void string_agent() { // Part 1
   while(!north()) { // Loop will sweep all lines along the wall, until facing north
     sweep_line();
     turn_right();
@@ -95,7 +102,7 @@ void string_agent() {
   turn_right(); // Reset to starting position from North
 }
 
-void chaos_agent() {
+void chaos_agent() { // Part 2
   move_to_facing_wall(); // Setup to the east of the grid to start sweeping
   while(on_ball()) { 
     // Loop will make Charles sweep the line, then set to the next line. On the start it checks if the line will be empty.
@@ -107,6 +114,51 @@ void chaos_agent() {
   reset_to_start(); // Reset to starting position to finish the exercise.
 }
 
-void block_agent() {
+void block_agent() { // Bonus Assignment
+  find_ball_on_line();
+  face_south();
+  move_to_facing_wall();
+    
+  while(in_front_of_wall()) {
+    put_ball();
+    face_east();
+    step();
+    face_south();  
+  }
 
+  put_ball();
+  step();
+  face_west();
+
+  while(in_front_of_wall()) {
+    put_ball();
+    face_south();
+    step();
+    face_west();
+  }
+
+  put_ball();
+  step();
+  face_north();
+
+  while(in_front_of_wall()) {
+    put_ball();
+    face_west();
+    step();
+    face_north();
+  }  
+
+  put_ball();
+  step();
+  face_east();
+
+  while(in_front_of_wall()) {
+    put_ball();
+    face_north();
+    step();
+    face_east();
+  }  
+
+  put_ball();
+  reset_to_start();
 }
