@@ -22,7 +22,7 @@ void test_agent() {
 }
 
 void string_agent() {
-  while(!north()) { // Function will sweep all lines along the wall, until facing north
+  while(!north()) { // Loop will sweep all lines along the wall, until facing north
     sweep_line();
     turn_right();
   }
