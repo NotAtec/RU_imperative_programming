@@ -1,0 +1,3 @@
+/home/uji/coding/university/ip/week_1/wxCharles/build/CMakeFiles/rebuild_cache.dir
+/home/uji/coding/university/ip/week_1/wxCharles/build/CMakeFiles/edit_cache.dir
+/home/uji/coding/university/ip/week_1/wxCharles/build/CMakeFiles/wxCharles.dir
