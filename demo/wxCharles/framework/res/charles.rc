@@ -1,0 +1,8 @@
+// define icon to be used by Explorer, which is the first icon in alphabetical order
+charles ICON "charles-icon.ico"
+
+// allow manifest resource, for instance to enable visual styles on XP
+#define wxUSE_NO_MANIFEST 0
+
+// include standard icons, cursors, etc...
+#include "wx/msw/wx.rc"

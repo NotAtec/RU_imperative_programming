@@ -1,0 +1,3 @@
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build/CMakeFiles/rebuild_cache.dir
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build/CMakeFiles/edit_cache.dir
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build/CMakeFiles/wxCharles.dir

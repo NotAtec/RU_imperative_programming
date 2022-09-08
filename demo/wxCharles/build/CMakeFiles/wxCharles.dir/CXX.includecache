@@ -1,0 +1,56 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/agent.cpp
+framework/charles.h
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/charles.h
+assignments/demo.h
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/assignments/demo.h
+
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/assignments/demo.h
+util/include_guard.h
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/assignments/util/include_guard.h
+util/common_worldgen.h
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/assignments/util/common_worldgen.h
+../framework/assignment.h
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/assignment.h
+
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/assignments/util/common_worldgen.h
+../../framework/world.h
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/world.h
+
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/assignments/util/include_guard.h
+
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/assignment.h
+world.h
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/world.h
+functional
+-
+string
+-
+vector
+-
+memory
+-
+random
+-
+optional
+-
+
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/charles.h
+
+/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/world.h
+cassert
+-
+vector
+-
+iostream
+-
+exception
+-
+

@@ -1,0 +1,57 @@
+[
+{
+  "directory": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build",
+  "command": "/usr/bin/g++  -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0   -pthread -g   -Wall -Wextra -pedantic-errors -std=gnu++17 -o CMakeFiles/wxCharles.dir/agent.cpp.o -c \"/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/agent.cpp\"",
+  "file": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/agent.cpp"
+},
+{
+  "directory": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build",
+  "command": "/usr/bin/g++  -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0   -pthread -g   -Wall -Wextra -pedantic-errors -std=gnu++17 -o CMakeFiles/wxCharles.dir/framework/app.cpp.o -c \"/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/app.cpp\"",
+  "file": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/app.cpp"
+},
+{
+  "directory": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build",
+  "command": "/usr/bin/g++  -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0   -pthread -g   -Wall -Wextra -pedantic-errors -std=gnu++17 -o CMakeFiles/wxCharles.dir/framework/assignment.cpp.o -c \"/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/assignment.cpp\"",
+  "file": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/assignment.cpp"
+},
+{
+  "directory": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build",
+  "command": "/usr/bin/g++  -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0   -pthread -g   -Wall -Wextra -pedantic-errors -std=gnu++17 -o CMakeFiles/wxCharles.dir/framework/charles.cpp.o -c \"/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/charles.cpp\"",
+  "file": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/charles.cpp"
+},
+{
+  "directory": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build",
+  "command": "/usr/bin/g++  -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0   -pthread -g   -Wall -Wextra -pedantic-errors -std=gnu++17 -o CMakeFiles/wxCharles.dir/framework/freeplay_window.cpp.o -c \"/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/freeplay_window.cpp\"",
+  "file": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/freeplay_window.cpp"
+},
+{
+  "directory": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build",
+  "command": "/usr/bin/g++  -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0   -pthread -g   -Wall -Wextra -pedantic-errors -std=gnu++17 -o CMakeFiles/wxCharles.dir/framework/scenario.cpp.o -c \"/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/scenario.cpp\"",
+  "file": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/scenario.cpp"
+},
+{
+  "directory": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build",
+  "command": "/usr/bin/g++  -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0   -pthread -g   -Wall -Wextra -pedantic-errors -std=gnu++17 -o CMakeFiles/wxCharles.dir/framework/simulation_window.cpp.o -c \"/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/simulation_window.cpp\"",
+  "file": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/simulation_window.cpp"
+},
+{
+  "directory": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build",
+  "command": "/usr/bin/g++  -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0   -pthread -g   -Wall -Wextra -pedantic-errors -std=gnu++17 -o CMakeFiles/wxCharles.dir/framework/trace.cpp.o -c \"/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/trace.cpp\"",
+  "file": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/trace.cpp"
+},
+{
+  "directory": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build",
+  "command": "/usr/bin/g++  -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0   -pthread -g   -Wall -Wextra -pedantic-errors -std=gnu++17 -o CMakeFiles/wxCharles.dir/framework/trace_list_control.cpp.o -c \"/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/trace_list_control.cpp\"",
+  "file": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/trace_list_control.cpp"
+},
+{
+  "directory": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build",
+  "command": "/usr/bin/g++  -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0   -pthread -g   -Wall -Wextra -pedantic-errors -std=gnu++17 -o CMakeFiles/wxCharles.dir/framework/world.cpp.o -c \"/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/world.cpp\"",
+  "file": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/world.cpp"
+},
+{
+  "directory": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/build",
+  "command": "/usr/bin/g++  -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0   -pthread -g   -Wall -Wextra -pedantic-errors -std=gnu++17 -o CMakeFiles/wxCharles.dir/framework/world_control.cpp.o -c \"/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/world_control.cpp\"",
+  "file": "/home/uji/coding/uni/2223 Imperative Programming (KW1 V) - 962022 - 337 PM/wxCharles/framework/world_control.cpp"
+}
+]
