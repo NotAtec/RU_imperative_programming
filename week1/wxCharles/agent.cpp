@@ -21,9 +21,9 @@ void walk_to_facing_wall();
 void walk_to_start();
 
 void move_down();
-void set_to_next_line();
+void walk_to_beginning_of_next_line();
 void find_ball_on_line();
-
+void grab_every_available_ball_on_line();
 void sweep_line();
 void sweep_until_clear();
 
@@ -50,13 +50,14 @@ void string_agent() {
   }
 }
 
-void chaos_agent() { // Part 2
-  walk_to_facing_wall(); // Setup to the east of the grid to start sweeping
+// Exercise 2: Clear ball chaos
+void chaos_agent() {
+  face_east();
+  walk_to_facing_wall();
+
   while(on_ball()) { 
-    // Loop will make Charles sweep the line, then set to the next line. On the start it checks if the line will be empty.
-    face_west();
-    sweep_until_clear();
-    set_to_next_line();
+    grab_every_available_ball_on_line();
+    walk_to_beginning_of_next_line();
   }
 
   walk_to_start(); // Reset to starting position to finish the exercise.
@@ -154,7 +155,7 @@ void move_down() {
   step();
 }
 
-void set_to_next_line() {
+void walk_to_beginning_of_next_line() {
   // Function will move Charles to the start of the next line, facing west.
   move_down();
   face_east();
@@ -197,10 +198,18 @@ void sweep_until_clear() {
   }
 }
 
-
-// Function for safely getting ball if one is available
+// Functions for making Charles do something
 void get_available_ball() {
   if(on_ball()) {
     get_ball();
+  }
+}
+
+void grab_every_available_ball_on_line() {
+  //We assume we are at the east wall, facing east.
+  face_west();
+  while(on_ball()) {
+    get_ball();
+    step();
   }
 }
