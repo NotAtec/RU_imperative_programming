@@ -17,10 +17,11 @@ void face_west();
 void face_south();
 void face_east();
 
-void move_to_facing_wall();
+void walk_to_facing_wall();
+void walk_to_start();
+
 void move_down();
 void set_to_next_line();
-void reset_to_start();
 void find_ball_on_line();
 
 void sweep_line();
@@ -35,18 +36,22 @@ void test_agent() {
 
 }
 
-void string_agent() { // Part 1
-  while(!north()) { // Loop will sweep all lines along the wall, until facing north
-    sweep_line();
-    turn_right();
+// Exercise 1 - Clean up a string of balls
+void string_agent() { 
+  //
+  while(on_ball()){
+    get_ball();
+    step();
+    
+    // Scenario 2: Check if we are in front of a wall and need to turn right
+    if(in_front_of_wall()){
+      turn_right();
+    }
   }
-
-  sweep_line(); // Clear final line
-  turn_right(); // Reset to starting position from North
 }
 
 void chaos_agent() { // Part 2
-  move_to_facing_wall(); // Setup to the east of the grid to start sweeping
+  walk_to_facing_wall(); // Setup to the east of the grid to start sweeping
   while(on_ball()) { 
     // Loop will make Charles sweep the line, then set to the next line. On the start it checks if the line will be empty.
     face_west();
@@ -54,13 +59,13 @@ void chaos_agent() { // Part 2
     set_to_next_line();
   }
 
-  reset_to_start(); // Reset to starting position to finish the exercise.
+  walk_to_start(); // Reset to starting position to finish the exercise.
 }
 
 void block_agent() { // Bonus Assignment
   find_ball_on_line();
   face_south();
-  move_to_facing_wall();
+  walk_to_facing_wall();
     
   while(in_front_of_wall()) {
     put_ball();
@@ -103,7 +108,7 @@ void block_agent() { // Bonus Assignment
   }  
 
   put_ball();
-  reset_to_start();
+  walk_to_start();
 }
 
 
@@ -136,7 +141,7 @@ void face_east() {
 
 
 // Functions for moving Charles to certain points in space
-void move_to_facing_wall() {
+void walk_to_facing_wall() {
   // Function will continue straight ahead, skipping balls, and move safely to the wall Charles is facing
   while(!in_front_of_wall()) {
     step();
@@ -153,15 +158,15 @@ void set_to_next_line() {
   // Function will move Charles to the start of the next line, facing west.
   move_down();
   face_east();
-  move_to_facing_wall();
+  walk_to_facing_wall();
 }
 
-void reset_to_start() {
+void walk_to_start() {
   // Function will reset Charles to the starting position, facing the way he faced at the start.
   face_north();
-  move_to_facing_wall();
+  walk_to_facing_wall();
   face_west();
-  move_to_facing_wall();
+  walk_to_facing_wall();
   face_east();
 }
 
