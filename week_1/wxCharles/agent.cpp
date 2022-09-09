@@ -63,52 +63,30 @@ void chaos_agent() {
   walk_to_start(); // Reset to starting position to finish the exercise.
 }
 
-void block_agent() { // Bonus Assignment
+// Bonus Exercise: Put balls around rectangle
+void block_agent() {
+  // Move to top-left corner of the rectangle
   find_ball_on_line();
   face_south();
   walk_to_facing_wall();
-    
-  while(in_front_of_wall()) {
-    put_ball();
-    face_east();
-    step();
-    face_south();  
-  }
-
-  put_ball();
-  step();
-  face_west();
-
-  while(in_front_of_wall()) {
-    put_ball();
-    face_south();
-    step();
-    face_west();
-  }
-
-  put_ball();
-  step();
-  face_north();
-
-  while(in_front_of_wall()) {
-    put_ball();
-    face_west();
-    step();
-    face_north();
-  }  
-
-  put_ball();
-  step();
   face_east();
 
-  while(in_front_of_wall()) {
-    put_ball();
-    face_north();
-    step();
-    face_east();
-  }  
+  // Put balls around the rectangle
+  while(!on_ball()) {
+    turn_right(); // Setup to check if Charles is in front of wall
+    while(in_front_of_wall()) { // Place ball and move to next square
+      turn_left();
+      put_ball();
+      step();
+      turn_right();
+    }
 
-  put_ball();
+    // Fill in corners aswell
+    put_ball();
+    step();
+  }
+
+  // Return to starting point
   walk_to_start();
 }
 
