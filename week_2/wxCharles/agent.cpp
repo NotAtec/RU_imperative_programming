@@ -1,8 +1,8 @@
 /******************************************************************************
-** Course: Imperative Programming - Assignment 1
+** Course: Imperative Programming - Assignment 2
 ** Authors: Jeroen Brinkhorst [S1101799]
 **          Andrei Ujica [S1102725]
-** Date: 13.09.2022
+** Date: 15.09.2022
 ******************************************************************************/
 
 #include "framework/charles.h"
