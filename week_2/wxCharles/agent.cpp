@@ -21,6 +21,9 @@ void put_column_of_balls();
 void walk_to_wall();
 void walk_to_opposite_corner();
 
+void walk_to_ball();
+void find_center_of_axis(bool vertical);
+
 
 /******************************************************************************
 ** Exercises
@@ -52,7 +55,11 @@ void cave_agent() {
 }
 
 void find_center_agent() {
+    // Find Center of the Horizontal Axis, set vertical parameter to false
+    find_center_of_axis(false);
 
+    // Find Center of the Horizontal Axis, set vertical parameter to true
+    find_center_of_axis(true);
 }
 
 void clean_up_agent() {
@@ -103,6 +110,26 @@ void face_east(){
     turn_right();
 }
 
+void face_south(){
+    face_east();
+    turn_right();
+}
+
+void find_center_of_axis(bool vertical){
+    
+    if(vertical){
+        face_south();
+        step();
+        walk_to_ball();
+    }
+
+    while(!on_ball()){
+        put_ball();
+        step();
+        walk_to_ball();
+    }
+}
+
 void put_column_of_balls(){
     turn_right();
 
@@ -128,4 +155,13 @@ void walk_to_opposite_corner(){
     turn_right();
     walk_to_wall();
     turn_right();
+}
+
+void walk_to_ball(){
+    while(!on_ball() && !in_front_of_wall())
+        step();
+    
+    face_the_opposite_direction();
+    if(on_ball())
+        step();
 }
