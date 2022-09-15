@@ -42,3 +42,7 @@ build/
 .vscode/
 
 # End of https://www.toptal.com/developers/gitignore/api/c++
+
+# Clangd stuff
+.cache/
+.clang-format
