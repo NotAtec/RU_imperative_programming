@@ -5,8 +5,8 @@
 ** Date: 15.09.2022
 ******************************************************************************/
 
-#include "framework/charles.h"
 #include "assignments/assignment2.h"
+#include "framework/charles.h"
 
 /******************************************************************************
 ** Function Prototypes
@@ -23,17 +23,16 @@ void walk_to_opposite();
 /******************************************************************************
 ** Exercises
 ******************************************************************************/
-void test_agent() {
-
-}
+void test_agent() {}
 
 // Exercise 1 - Follow contiguous path of balls
 void path_agent() {
-  // For Exercise 1 I have made one assumption: Walls only exist on the edges of the world,
-  // As such, there will never exist a situation where there is a wall on the left whilst there is also a wall on the right of Charles.
+  // For Exercise 1 I have made one assumption: Walls only exist on the edges of
+  // the world, As such, there will never exist a situation where there is a
+  // wall on the left whilst there is also a wall on the right of Charles.
 
   // Loop follows all lines until the end
-  while(on_ball()) {
+  while (on_ball()) {
     follow_line();
     check_direction();
   }
@@ -49,7 +48,7 @@ void cave_agent() {
   step();
 
   // Repeat for all lines where balls are required.
-  while(!in_front_of_wall()) {
+  while (!in_front_of_wall()) {
     put_column_of_balls();
     step();
   }
@@ -58,13 +57,9 @@ void cave_agent() {
   walk_to_opposite();
 }
 
-void find_center_agent() {
+void find_center_agent() {}
 
-}
-
-void clean_up_agent() {
-
-}
+void clean_up_agent() {}
 
 /******************************************************************************
 ** Function Definitions
@@ -72,7 +67,7 @@ void clean_up_agent() {
 
 // Function makes Charles turn 'x' amount of times.
 void turn_times(int x) {
-  while(x > 0) {
+  while (x > 0) {
     turn_right();
     x -= 1;
   }
@@ -80,15 +75,16 @@ void turn_times(int x) {
 
 // Function makes Charles step 'x' amount of times.
 void step_times(int x) {
-  while(x > 0) {
+  while (x > 0) {
     step();
     x -= 1;
   }
 }
 
-// Function makes Charles move to the nearest wall, without thinking about balls.
+// Function makes Charles move to the nearest wall, without thinking about
+// balls.
 void walk_to_wall() {
-  while(!in_front_of_wall()) {
+  while (!in_front_of_wall()) {
     step();
   }
 }
@@ -97,7 +93,7 @@ void walk_to_wall() {
 void put_column_of_balls() {
   turn_right();
 
-  while(!in_front_of_wall()) {
+  while (!in_front_of_wall()) {
     put_ball();
     step();
   }
@@ -125,12 +121,12 @@ void reset_to(int steps, int turns) {
 
 // Function makes Charles follow a line of balls.
 void follow_line() {
-  while(on_ball() && !in_front_of_wall()) {
+  while (on_ball() && !in_front_of_wall()) {
     step();
   }
 
   // In case of an overshoot, use this snippet to move back to the line.
-  if(!on_ball()) {
+  if (!on_ball()) {
     reset_to(1, 2);
   }
 }
@@ -141,9 +137,9 @@ void check_right() {
 
   // Edgecase: Right is a wall instead of a cell
   // Check wall before checking the side.
-  if(in_front_of_wall()) {
-    // Due to the assumption of only 1 side wall, we know the other side must be empty with no ball
-    // As such we can move to the empty square.
+  if (in_front_of_wall()) {
+    // Due to the assumption of only 1 side wall, we know the other side must be
+    // empty with no ball As such we can move to the empty square.
     reset_to(1, 0);
   } else {
     step();
@@ -152,7 +148,7 @@ void check_right() {
 
 // Function sets up Charles to check right side.
 void setup_right(bool left) {
-  if(left) {
+  if (left) {
     turn_left();
   } else {
     turn_right();
@@ -163,8 +159,8 @@ void setup_right(bool left) {
 // Function checks left side after edgecase check
 void check_left() {
   step();
-  
-  if(!on_ball()) {
+
+  if (!on_ball()) {
     reset_to(1, 0);
     setup_right(true);
   }
@@ -177,7 +173,7 @@ void check_direction() {
 
   // Edgecase: Left is a wall instead of a cell
   // Check for wall before actually checking a side.
-  if(in_front_of_wall()) {
+  if (in_front_of_wall()) {
     setup_right(false);
   } else {
     check_left();
@@ -186,7 +182,7 @@ void check_direction() {
 
 // Function makes Charles face East
 void face_east() {
-  while(!north()) {
+  while (!north()) {
     turn_left();
   }
   turn_right();
