@@ -125,7 +125,7 @@ void reset_to(int steps, int turns) {
 
 // Function makes Charles follow a line of balls.
 void follow_line() {
-  while(on_ball() & !in_front_of_wall()) {
+  while(on_ball() && !in_front_of_wall()) {
     step();
   }
 
