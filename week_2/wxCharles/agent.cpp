@@ -12,24 +12,14 @@
 ** Function Prototypes
 ******************************************************************************/
 
-void face_north();
-void face_east();
-void turn_times(int x);
-
-void walk_to_wall();
-void line_of_balls();
-void beginning_of_line();
 void follow_line();
-
+void check_direction();
+void face_east();
 void reset_to(int steps, int turns);
-void step_times(int x);
 
-void find_next_line();
-void check_left();
-void check_right();
+void put_column_of_balls();
+void walk_to_opposite();
 
-void setup_right();
-void setup_next_part();
 /******************************************************************************
 ** Exercises
 ******************************************************************************/
@@ -45,10 +35,10 @@ void path_agent() {
   // Loop follows all lines until the end
   while(on_ball()) {
     follow_line();
-    find_next_line();
+    check_direction();
   }
 
-  // After finishing the line, it will move back to the line and face east.
+  // Code snippet is used to move back to the path, and face east.
   reset_to(1, 0);
   face_east();
 }
@@ -60,15 +50,12 @@ void cave_agent() {
 
   // Repeat for all lines where balls are required.
   while(!in_front_of_wall()) {
-    turn_right();
-    line_of_balls();
-    beginning_of_line();
-    turn_right();
+    put_column_of_balls();
     step();
   }
 
   // Setup Charles for the mirrored second part.
-  setup_next_part();
+  walk_to_opposite();
 }
 
 void find_center_agent() {
@@ -83,21 +70,6 @@ void clean_up_agent() {
 ** Function Definitions
 ******************************************************************************/
 
-// Functions to make Charles turn around
-
-// Function makes Charles face North
-void face_north() {
-  while(!north()) {
-    turn_left();
-  }
-}
-
-// Function makes Charles face East
-void face_east() {
-  face_north();
-  turn_right();
-}
-
 // Function makes Charles turn 'x' amount of times.
 void turn_times(int x) {
   while(x > 0) {
@@ -106,7 +78,13 @@ void turn_times(int x) {
   }
 }
 
-// Functions to make Charles move around the grid
+// Function makes Charles step 'x' amount of times.
+void step_times(int x) {
+  while(x > 0) {
+    step();
+    x -= 1;
+  }
+}
 
 // Function makes Charles move to the nearest wall, without thinking about balls.
 void walk_to_wall() {
@@ -115,33 +93,27 @@ void walk_to_wall() {
   }
 }
 
-// Function makes Charles place a line of balls to the next wall straight ahead.
-void line_of_balls() {
+// Function places a line of balls, and moves back up.
+void put_column_of_balls() {
+  turn_right();
+
   while(!in_front_of_wall()) {
     put_ball();
     step();
   }
 
+  // After hitting the wall, place final ball and move back up.
   put_ball();
-}
-
-// Function makes Charles move to beginning of line after placing a line of balls.
-void beginning_of_line() {
   turn_times(2);
   walk_to_wall();
+  turn_right();
 }
 
-// Function makes Charles follow a line of balls.
-void follow_line() {
-  // Follow the line
-  while(on_ball() & !in_front_of_wall()) {
-    step();
-  }
-
-  // Move back to the line in case of an overshoot
-  if(!on_ball()) {
-    reset_to(2, 2);
-  }
+// Function makes Charles setup for the mirrored part of the exercise.
+void walk_to_opposite() {
+  turn_right();
+  walk_to_wall();
+  turn_right();
 }
 
 // Function makes Charles move to a certain position after turning around.
@@ -151,38 +123,24 @@ void reset_to(int steps, int turns) {
   turn_times(turns);
 }
 
-// Function makes Charles move x amount of times.
-void step_times(int x) {
-  while(x > 0) {
+// Function makes Charles follow a line of balls.
+void follow_line() {
+  while(on_ball() & !in_front_of_wall()) {
     step();
-    x -= 1;
   }
-}
-// Functions to make charles look for balls.
 
-// Function checks left side for ball, and if nothing or a wall is found, will check the right side.
-void find_next_line() {
-  turn_left();
-
-  if(in_front_of_wall()) {
-    setup_right(false);
-  } else {
-    check_left();
-  }
-}
-
-// Function checks left side for ball.
-void check_left() {
-  step();
+  // In case of an overshoot, use this snippet to move back to the line.
   if(!on_ball()) {
-    reset_to(1, 0);
-    setup_right(true);
+    reset_to(1, 2);
   }
 }
 
 // Function checks right side for ball.
 void check_right() {
   turn_right();
+
+  // Edgecase: Right is a wall instead of a cell
+  // Check wall before checking the side.
   if(in_front_of_wall()) {
     // Due to the assumption of only 1 side wall, we know the other side must be empty with no ball
     // As such we can move to the empty square.
@@ -192,21 +150,44 @@ void check_right() {
   }
 }
 
-// Functions to setup for further action
-
-// Function will setup to check right side of previously walked line
+// Function sets up Charles to check right side.
 void setup_right(bool left) {
   if(left) {
     turn_left();
   } else {
     turn_right();
   }
+
   check_right();
 }
+// Function checks left side after edgecase check
+void check_left() {
+  step();
+  
+  if(!on_ball()) {
+    reset_to(1, 0);
+    setup_right(true);
+  }
+}
 
-// Function makes Charles setup for the mirrored part of the exercise.
-void setup_next_part() {
-  turn_right();
-  walk_to_wall();
+// Function checks left & right for continuation of path.
+void check_direction() {
+  // Check left side
+  turn_left();
+
+  // Edgecase: Left is a wall instead of a cell
+  // Check for wall before actually checking a side.
+  if(in_front_of_wall()) {
+    setup_right(false);
+  } else {
+    check_left();
+  }
+}
+
+// Function makes Charles face East
+void face_east() {
+  while(!north()) {
+    turn_left();
+  }
   turn_right();
 }
