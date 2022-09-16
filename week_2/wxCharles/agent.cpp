@@ -18,7 +18,11 @@ void face_east();
 void reset_to(int steps, int turns);
 
 void put_column_of_balls();
+void walk_to_wall();
 void walk_to_opposite();
+
+void walk_to_ball();
+void find_center_of_axis(bool vertical);
 
 /******************************************************************************
 ** Exercises
@@ -57,7 +61,17 @@ void cave_agent() {
   walk_to_opposite();
 }
 
-void find_center_agent() {}
+// Bonus 1 - Find the Center
+void find_center_agent() {
+  // Find Center of the Horizontal Axis, set vertical parameter to false
+  find_center_of_axis(false);
+
+  // Find Center of the Horizontal Axis, set vertical parameter to true
+  find_center_of_axis(true);
+
+  // Setup to face east like in the instruction
+  face_east();
+}
 
 void clean_up_agent() {}
 
@@ -84,9 +98,8 @@ void step_times(int x) {
 // Function makes Charles move to the nearest wall, without thinking about
 // balls.
 void walk_to_wall() {
-  while (!in_front_of_wall()) {
+  while (!in_front_of_wall())
     step();
-  }
 }
 
 // Function places a line of balls, and moves back up.
@@ -121,14 +134,12 @@ void reset_to(int steps, int turns) {
 
 // Function makes Charles follow a line of balls.
 void follow_line() {
-  while (on_ball() && !in_front_of_wall()) {
+  while (on_ball() && !in_front_of_wall())
     step();
-  }
 
   // In case of an overshoot, use this snippet to move back to the line.
-  if (!on_ball()) {
+  if (!on_ball())
     reset_to(1, 2);
-  }
 }
 
 // Function checks right side for ball.
@@ -137,22 +148,20 @@ void check_right() {
 
   // Edgecase: Right is a wall instead of a cell
   // Check wall before checking the side.
-  if (in_front_of_wall()) {
+  if (in_front_of_wall())
     // Due to the assumption of only 1 side wall, we know the other side must be
     // empty with no ball As such we can move to the empty square.
     reset_to(1, 0);
-  } else {
+  else
     step();
-  }
 }
 
 // Function sets up Charles to check right side.
 void setup_right(bool left) {
-  if (left) {
+  if (left)
     turn_left();
-  } else {
+  else
     turn_right();
-  }
 
   check_right();
 }
@@ -173,17 +182,48 @@ void check_direction() {
 
   // Edgecase: Left is a wall instead of a cell
   // Check for wall before actually checking a side.
-  if (in_front_of_wall()) {
+  if (in_front_of_wall())
     setup_right(false);
-  } else {
+  else
     check_left();
-  }
 }
 
 // Function makes Charles face East
 void face_east() {
-  while (!north()) {
+  while (!north())
     turn_left();
-  }
+
   turn_right();
+}
+
+// Function makes Charles face South
+void face_south() {
+  face_east();
+  turn_right();
+}
+
+// Function makes Charles find the center of an axis.
+// Boolean indicates if a vertical or horizontal axis should be used.
+void find_center_of_axis(bool vertical) {
+  if (vertical) {
+    face_south();
+    step();
+    walk_to_ball();
+  }
+
+  while (!on_ball()) {
+    put_ball();
+    step();
+    walk_to_ball();
+  }
+}
+
+// Function makes Charles move to the ball for finding center.
+void walk_to_ball() {
+  while (!on_ball() && !in_front_of_wall())
+    step();
+
+  turn_times(2);
+  if (on_ball())
+    step();
 }
