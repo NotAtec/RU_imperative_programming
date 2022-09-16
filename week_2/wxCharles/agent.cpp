@@ -12,17 +12,21 @@
 ** Function Prototypes
 ******************************************************************************/
 
+void face_north();
+void face_east();
+
 void follow_line();
 void check_direction();
-void face_east();
 void reset_to(int steps, int turns);
 
 void put_column_of_balls();
-void walk_to_wall();
 void walk_to_opposite();
 
-void walk_to_ball();
 void find_center_of_axis(bool vertical);
+
+void clean_to_wall(bool final_ball);
+void move_to_center(int x);
+void clean_horizontal();
 
 /******************************************************************************
 ** Exercises
@@ -73,11 +77,49 @@ void find_center_agent() {
   face_east();
 }
 
-void clean_up_agent() {}
+// Bonus 2 - Clean up Balls
+void clean_up_agent() {
+  // Clean up the northern half of the vertical line
+  face_north();
+  clean_to_wall(false);
+
+  clean_horizontal();
+
+  // Move to center of vertical line, and remove the southern half
+  move_to_center(0);
+  clean_to_wall(true);
+
+  // Move back to the center and face east
+  move_to_center(2);
+  face_east();
+}
 
 /******************************************************************************
 ** Function Definitions
 ******************************************************************************/
+
+// Functions for facing certain cardinal directions
+
+// Function makes Charles face north
+void face_north() {
+  while (!north())
+    turn_left();
+}
+
+// Function makes Charles face East
+void face_east() {
+  face_north();
+  turn_right();
+}
+
+// Function makes Charles face South
+void face_south() {
+  face_east();
+  turn_right();
+}
+
+// Simple functions
+// All functions that simply repeat some steps
 
 // Function makes Charles turn 'x' amount of times.
 void turn_times(int x) {
@@ -95,6 +137,15 @@ void step_times(int x) {
   }
 }
 
+// Function makes Charles move to a certain position after turning around.
+void reset_to(int steps, int turns) {
+  turn_times(2);
+  step_times(steps);
+  turn_times(turns);
+}
+
+// Movement functions
+
 // Function makes Charles move to the nearest wall, without thinking about
 // balls.
 void walk_to_wall() {
@@ -102,34 +153,14 @@ void walk_to_wall() {
     step();
 }
 
-// Function places a line of balls, and moves back up.
-void put_column_of_balls() {
-  turn_right();
-
-  while (!in_front_of_wall()) {
-    put_ball();
+// Function makes Charles move to the ball for finding center.
+void walk_to_ball() {
+  while (!on_ball() && !in_front_of_wall())
     step();
-  }
 
-  // After hitting the wall, place final ball and move back up.
-  put_ball();
   turn_times(2);
-  walk_to_wall();
-  turn_right();
-}
-
-// Function makes Charles setup for the mirrored part of the exercise.
-void walk_to_opposite() {
-  turn_right();
-  walk_to_wall();
-  turn_right();
-}
-
-// Function makes Charles move to a certain position after turning around.
-void reset_to(int steps, int turns) {
-  turn_times(2);
-  step_times(steps);
-  turn_times(turns);
+  if (on_ball())
+    step();
 }
 
 // Function makes Charles follow a line of balls.
@@ -141,6 +172,82 @@ void follow_line() {
   if (!on_ball())
     reset_to(1, 2);
 }
+
+// Function makes Charles setup for the mirrored part of the exercise.
+void walk_to_opposite() {
+  turn_right();
+  walk_to_wall();
+  turn_right();
+}
+
+// Setup Functions
+
+// Function places final ball & moves back up when hitting a wall in a column
+void column_return() {
+  put_ball();
+  turn_times(2);
+  walk_to_wall();
+  turn_right();
+}
+
+// Function places a line of balls, and moves back up.
+void put_column_of_balls() {
+  turn_right();
+
+  while (!in_front_of_wall()) {
+    put_ball();
+    step();
+  }
+
+  column_return();
+  
+}
+
+// Cleanup Functions
+
+// Function makes Charles clean balls until the wall
+void clean_to_wall(bool final_ball) {
+  step();
+
+  // Pick up all balls between the center and the wall
+  while(!in_front_of_wall()) {
+    get_ball();
+    step();
+  }
+
+  // Pick up the ball at the wall if required
+  if(final_ball) {
+    get_ball();
+  }
+}
+
+// Function makes Charles turn around & move to the first ball on the line
+void find_center_ball() {
+  while(!on_ball())
+    step();
+}
+
+// Function moves Charles back to ball
+void move_to_center(int x) {
+  turn_times(x);
+  find_center_ball();
+}
+
+// Function cleans the horizontal line
+void clean_horizontal() {
+  turn_left();
+  clean_to_wall(true);
+
+  move_to_center(2);
+  clean_to_wall(true);
+
+  move_to_center(2);
+
+  face_south();
+  get_ball();
+}
+
+// Direction finding functions
 
 // Function checks right side for ball.
 void check_right() {
@@ -165,6 +272,7 @@ void setup_right(bool left) {
 
   check_right();
 }
+
 // Function checks left side after edgecase check
 void check_left() {
   step();
@@ -188,20 +296,6 @@ void check_direction() {
     check_left();
 }
 
-// Function makes Charles face East
-void face_east() {
-  while (!north())
-    turn_left();
-
-  turn_right();
-}
-
-// Function makes Charles face South
-void face_south() {
-  face_east();
-  turn_right();
-}
-
 // Function makes Charles find the center of an axis.
 // Boolean indicates if a vertical or horizontal axis should be used.
 void find_center_of_axis(bool vertical) {
@@ -216,14 +310,4 @@ void find_center_of_axis(bool vertical) {
     step();
     walk_to_ball();
   }
-}
-
-// Function makes Charles move to the ball for finding center.
-void walk_to_ball() {
-  while (!on_ball() && !in_front_of_wall())
-    step();
-
-  turn_times(2);
-  if (on_ball())
-    step();
 }
