@@ -59,7 +59,7 @@ void inclusion(double epsilon, double v) {
   double a = 0.0; // The lower estimation bound
   double b = 0.0; // The upper estimation bound
 
-  b = std::max(v, 1.0);
+  b = max(v, 1.0);
 
   if (a * a == v)
     x = 0;
@@ -76,7 +76,14 @@ void inclusion(double epsilon, double v) {
     Assignment part 3: Newton-Raphson
 ********************************************************************/
 void newtonraphson(double epsilon, double v) {
-  // implement this function
+  double x = max(v, 1.0);
+
+  while (abs(x * x - v) > epsilon) {
+    x = x - (x * x - v) / (2 * x);
+  }
+
+  cout << "Newton Raphson square root of " << v << " is " << x
+       << " for epsilon " << epsilon << endl;
 }
 
 int main() {
@@ -85,5 +92,11 @@ int main() {
   inclusion(0.1, 0.5);
   inclusion(0.1, 4.0);
   inclusion(0.1, 20.0);
+
+  newtonraphson(0.1, 0.0);
+  newtonraphson(0.1, 1.0);
+  newtonraphson(0.1, 0.5);
+  newtonraphson(0.1, 4.0);
+  newtonraphson(0.1, 20.0);
   return 0;
 }
