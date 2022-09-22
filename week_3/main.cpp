@@ -10,10 +10,6 @@
 using namespace std;
 
 /********************************************************************
-    Function Prototypes
-********************************************************************/
-
-/********************************************************************
     Desktop Test:
     Inclusion:
     Inclusion square root of 0 is 0
@@ -32,26 +28,62 @@ using namespace std;
 ********************************************************************/
 
 /********************************************************************
+    Type, Variable & Function Definitions
+********************************************************************/
+void inclusion_output(double lower, double upper, double est, double v,
+                      double eps) {
+  if (lower * lower == v)
+    cout << "Inclusion square root of " << v << " is " << lower << endl;
+  else if (upper * upper == v)
+    cout << "Inclusion square root of " << v << " is " << upper << endl;
+  else
+    cout << "Inclusion square root of " << v << " is " << est << " for epsilon "
+         << eps << endl;
+}
+
+double estimation_loop(double x, double a, double b, double v, double epsilon) {
+  while (abs(x * x - v) > epsilon) {
+    x = (a + b) / 2;
+    if (x * x < v)
+      a = x;
+    else
+      b = x;
+  }
+  return x;
+}
+/********************************************************************
     Assignment part 2: Inclusion
 ********************************************************************/
-void inclusion(double epsilon, double v)
-{
-    //implement this function
+void inclusion(double epsilon, double v) {
+  double x = 0.0; // The current estimation
+  double a = 0.0; // The lower estimation bound
+  double b = 0.0; // The upper estimation bound
+
+  b = std::max(v, 1.0);
+
+  if (a * a == v)
+    x = 0;
+  else if (b * b == v)
+    x = 1;
+  else
+    x = (a + b) / 2;
+
+  x = estimation_loop(x, a, b, v, epsilon);
+  inclusion_output(a, b, x, v, epsilon);
 }
 
 /********************************************************************
     Assignment part 3: Newton-Raphson
 ********************************************************************/
-void newtonraphson(double epsilon, double v)
-{
-    //implement this function
+void newtonraphson(double epsilon, double v) {
+  // implement this function
 }
 
-int main()
-{
-    return 0;
+int main() {
+  inclusion(0.1, 0.0);
+  inclusion(0.1, 1.0);
+  inclusion(0.1, 0.5);
+  inclusion(0.1, 4.0);
+  inclusion(0.1, 20.0);
+  return 0;
 }
-
-/********************************************************************
-    Function Definitions
-********************************************************************/
