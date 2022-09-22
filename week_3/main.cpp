@@ -41,26 +41,17 @@ void inclusion_output(double lower, double upper, double est, double v,
          << eps << endl;
 }
 
-double estimation_loop(double x, double a, double b, double v, double epsilon) {
-  while (abs(x * x - v) > epsilon) {
-    x = (a + b) / 2;
-    if (x * x < v)
-      a = x;
-    else
-      b = x;
-  }
-  return x;
-}
 /********************************************************************
     Assignment part 2: Inclusion
 ********************************************************************/
 void inclusion(double epsilon, double v) {
-  double x = 0.0; // The current estimation
-  double a = 0.0; // The lower estimation bound
-  double b = 0.0; // The upper estimation bound
+  double x = 0.0;         // The current estimation
+  double a = 0.0;         // The lower estimation bound
+  double b = max(v, 1.0); // The upper estimation bound
 
-  b = max(v, 1.0);
-
+  // Since return values aren't allowed to be used yet, this has to be inside
+  // this function due to scope. "Proper" styleguide adherence would make me
+  // write a function here that returns the value to assign to x.
   if (a * a == v)
     x = 0;
   else if (b * b == v)
@@ -68,7 +59,17 @@ void inclusion(double epsilon, double v) {
   else
     x = (a + b) / 2;
 
-  x = estimation_loop(x, a, b, v, epsilon);
+  // Same principle regarding return values applies here. In case of proper
+  // style-guide adherance I would separate this part of the function into it's
+  // own sub-function aswell, which then returns the final value of 'x'.
+  while (abs(x * x - v) > epsilon) {
+    x = (a + b) / 2;
+    if (x * x < v)
+      a = x;
+    else
+      b = x;
+  }
+
   inclusion_output(a, b, x, v, epsilon);
 }
 
@@ -76,10 +77,14 @@ void inclusion(double epsilon, double v) {
     Assignment part 3: Newton-Raphson
 ********************************************************************/
 void newtonraphson(double epsilon, double v) {
-  double x = max(v, 1.0);
+  double x = max(v, 1.0); // Initial Estimation
+  double n = 0;           // Iteration
+  cout << n << '\t' << x << endl;
 
   while (abs(x * x - v) > epsilon) {
     x = x - (x * x - v) / (2 * x);
+    n++;
+    cout << n << '\t' << x << endl;
   }
 
   cout << "Newton Raphson square root of " << v << " is " << x
