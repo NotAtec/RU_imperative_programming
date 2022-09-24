@@ -1,5 +1,5 @@
 /********************************************************************
-    Course: Imperative Programming - Assignment 2
+    Course: Imperative Programming - Assignment 3
     Authors: Jeroen Brinkhorst [S1101799]
              Andrei Ujica [S1102725]
     Date: 22.09.2022
@@ -32,14 +32,14 @@ using namespace std;
 
     v = 1
     0       0       1       1
-    
+
     v = 0.5
     0       0       0.5     1
     1       0.5     0.75    1
-    
+
     v = 4
     0       0       2       4
-    
+
     v = 20
     0       0       10      20
     1       0       5       10
@@ -51,26 +51,26 @@ using namespace std;
     7       4.375   4.45312 4.53125
     8       4.45312 4.49219 4.53125
     9       4.45312 4.47266 4.49219
-    
+
     Newton Raphson:
     v = 0
     0       1
     1       0.5
     2       0.25
-    
+
     v = 1
     0       1
-    
+
     v = 0.5
     0       1
     1       0.75
-    
+
     v = 4
     0       4
     1       2.5
     2       2.05
     3       2.00061
-    
+
     v = 20
     0       20
     1       10.5
@@ -113,16 +113,17 @@ void inclusion(double epsilon, double v) {
     x = (a + b) / 2;
 
   cout << n << '\t' << a << '\t' << x << '\t' << b << endl;
+
   // Same principle regarding return values applies here. In case of proper
   // style-guide adherance I would separate this part of the function into it's
   // own sub-function aswell, which then returns the final value of 'x'.
   while (abs(x * x - v) > epsilon) {
     x = (a + b) / 2;
-    if(!(n==0)) 
+    if (!(n == 0))
       cout << n << '\t' << a << '\t' << x << '\t' << b << endl;
 
     n++;
-    
+
     if (x * x < v)
       a = x;
     else
@@ -162,5 +163,6 @@ int main() {
   newtonraphson(0.1, 0.5);
   newtonraphson(0.1, 4.0);
   newtonraphson(0.1, 20.0);
+
   return 0;
 }
