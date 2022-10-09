@@ -12,6 +12,8 @@
 
 using namespace std;
 int seed = 0;
+// value of R for source: 10101
+
 
 /********************************************************************
     Function Declarations
