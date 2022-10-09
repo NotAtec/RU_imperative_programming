@@ -2,7 +2,7 @@
     Course: Imperative Programming - Assignment 5
     Authors: Jeroen Brinkhorst [S1101799]
              Andrei Ujica [S1102725]
-    Date: 9.10.2022
+    Date: 06.10.2022
 ********************************************************************/
 
 #include <cassert> // for assertion checking
@@ -12,9 +12,17 @@
 
 using namespace std;
 
+/********************************************************************
+    Global Variable Definitions
+********************************************************************/
+
 enum Action { Encrypt, Decrypt };
 
 int seed = 0;
+
+/********************************************************************
+    Function Definitions
+********************************************************************/
 
 void initialise_pseudo_random(int r) {
   //  pre-condition:
@@ -40,6 +48,11 @@ int next_pseudo_random_number() {
   return next;
 }
 
+/********************************************************************
+    Helper Functions
+********************************************************************/
+
+// Part 1
 char rotate_char(char a, int r, Action action) {
   //  Pre-condition:
   assert(r >= 0);
@@ -56,18 +69,29 @@ char rotate_char(char a, int r, Action action) {
 }
 
 bool contains_special_char(string str) {
-  for (char &c : str) {
+  // Pre-condition:
+  assert(str != "");
+  // Post-condition: Returns true if string contains special characters, false
+  // if it doesn't.
+
+  for (char &c : str) { // Loop over all characters in string
     if (c < 32) {
-      return true;
       cout << endl
            << "Please make sure the name doesn't contain special characters!"
            << endl;
+      return true;
     }
   }
   return false;
 }
 
 void get_user_filenames(string &input, string &output) {
+  // Pre-condition:
+  assert(true);
+  // Post-condition: result is input and output variables have the filenames of
+  // the file to decrypt/encrypt and the output file, without special characters
+  // and the filenames are different.
+
   do {
     if (input == output) {
       cout << "Make sure that the filenames aren't the same!" << endl;
@@ -75,19 +99,19 @@ void get_user_filenames(string &input, string &output) {
 
     cout << "Input the filename of the file to be encrypted / decrypted (No "
             "special characters): ";
-    do {
+    do { // Get input until correct input is given
       cin >> input;
     } while (contains_special_char(input));
 
-    cout << "Input the filename of the file to output the result in: (No "
-            "special "
-            "characters)";
-    do {
+    cout << "Input the filename of the file to output the result in (No "
+            "special characters): ";
+    do { // Get input until correct input is given
       cin >> output;
     } while (contains_special_char(output));
   } while (input == output);
 }
 
+// Part 2
 bool open_input_and_output_file(ifstream &infile, ofstream &outfile) {
   //  Pre-condition:
   assert(true);
@@ -110,7 +134,7 @@ Action get_user_action() { // Pre-condition:
   assert(true);
   /*  Post-condition:
       result is the Action that the user has indicated that the program should
-     encrypt / decrypt
+      encrypt / decrypt
   */
   cout << "Do you want to encrypt the file? (y/n): ";
   string answer;
@@ -136,18 +160,20 @@ int initial_encryption_value() { // Pre-conditie:
   return initial_value;
 }
 
+// Part 3
 void use_OTP(ifstream &infile, ofstream &outfile, Action action,
              int initial_value) {
   //  Pre-condition:
-
-  //  Post-condition:
+  assert(!infile.fail() && !outfile.fail() && initial_value > 0 &&
+         initial_value < 65536);
+  //  Post-condition: result is that the encrypted / decrypted text is placed
+  //  into an output file decided by the param &outfile
 
   initialise_pseudo_random(initial_value);
 
   char c;
   while (infile.get(c)) {
     outfile.put(rotate_char(c, next_pseudo_random_number(), action));
-    cout << c;
   }
 }
 
