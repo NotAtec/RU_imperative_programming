@@ -8,24 +8,21 @@
 #include "framework/charles.h"
 #include "assignments/assignment1.h"
 
-
 /******************************************************************************
 ** Function Prototypes
 ******************************************************************************/
 
-void turn_north();
-void turn_east();
-void turn_south();
-void turn_west();
+void face_north();
+void face_west();
+void face_south();
+void face_east();
 
 void walk_to_facing_wall();
-void walk_to_left_corner();
-void walk_to_first_ball_in_sight();
-void move_to_next_line_and_face_west();
+void walk_to_start();
 
-bool row_contains_ball();
-bool next_to_wall();
-
+void move_down();
+void walk_to_beginning_of_next_line();
+void find_ball_on_line();
 void grab_every_available_ball_on_line();
 
 /******************************************************************************
@@ -36,146 +33,135 @@ void test_agent() {
 }
 
 // Exercise 1 - Clean up a string of balls
-void string_agent() {
-    // 
-    while(on_ball()){
-        // Scenario 1: we are not in front of a wall
-        get_ball();
-        step();
-
-        // Scenario 2: we are in front of the wall, therefore we just need to turn right
-        if(in_front_of_wall()){
-            turn_right();
-        }
+void string_agent() { 
+  // Clear the line, and check each time if we need to turn to prevent moving into a wall
+  while(on_ball()){
+    get_ball();
+    step();
+    
+    // Check if we are in front of a wall and need to turn right
+    if(in_front_of_wall()){
+      turn_right();
     }
+  }
 }
 
 // Exercise 2: Clear ball chaos
 void chaos_agent() {
-    // Find the first ball from the first row containing balls 
-    // (Check "row_contains_ball" method for reasoning)
-    while(!row_contains_ball()){
-        move_to_next_line_and_face_west();
-        walk_to_facing_wall();
-    }
-    
-    // Position Charles on the East wall
-    turn_east();
-    walk_to_facing_wall();
+  // Setup to east part of map
+  face_east();
+  walk_to_facing_wall();
 
-    // Clear all lines
-    while(on_ball()){
-        grab_every_available_ball_on_line();
-        move_to_next_line_and_face_west();
-    }
+  // Clear line & walk to next line
+  while(on_ball()) { 
+    grab_every_available_ball_on_line();
+    walk_to_beginning_of_next_line();
+  }
 
-    // Return to starting point
-    walk_to_left_corner();
+  walk_to_start(); // Reset to starting position to finish the exercise.
 }
 
-// Bonus Exercise: Clear along the wall
+// Bonus Exercise: Put balls around rectangle
 void block_agent() {
-    // Move to the top-left corner of the rectangle
-    walk_to_first_ball_in_sight();
-    turn_south();
-    walk_to_facing_wall();
-    turn_east();
+  // Move to top-left corner of the rectangle
+  find_ball_on_line();
+  face_south();
+  walk_to_facing_wall();
+  face_east();
 
-    // Put balls around the rectangle
-    while(!on_ball()){
-        while(next_to_wall()){
-            turn_left();
-            put_ball();
-            step();
-        }
+  // Put balls around the rectangle
+  while(!on_ball()) {
+    turn_right(); // Setup to check if Charles is in front of wall
+    while(in_front_of_wall()) { // Place ball and move to next square
+      turn_left();
+      put_ball();
+      step();
+      turn_right();
+    }
 
-        // Fill in corners as well
-        put_ball();
-        step();
-        }
+    // Fill in corners aswell
+    put_ball();
+    step();
+  }
 
-    // Walk back to starting point
-    walk_to_left_corner();
+  // Return to starting point
+  walk_to_start();
 }
+
 
 /******************************************************************************
 ** Function Definitions
 ******************************************************************************/
 
-// Functions for setting the direction of Charles
-void turn_north(){
-    while(!north())
-        turn_right();
+// Functions for setting Charles direction
+void face_north() {
+  while(!north()) {
+    turn_left();
+  }
 }
 
-void turn_east(){
-    turn_north();
-    turn_right();
+void face_west() {
+  face_north();
+  turn_left();
 }
 
-void turn_south(){
-    turn_east();
-    turn_right();
+void face_south() {
+  face_north();
+  turn_left();
+  turn_left();
 }
 
-void turn_west(){
-    turn_south();
-    turn_right();
+void face_east() {
+  face_north();
+  turn_right();
 }
 
 
-// Functions for moving Charles to a certain point
-void walk_to_facing_wall(){
-    while(!in_front_of_wall())
-        step();
-}
-
-void walk_to_left_corner(){
-    turn_west();
-    walk_to_facing_wall();
-    turn_right();
-    walk_to_facing_wall();
-    turn_right();
-}
-
-void move_to_next_line_and_face_west(){
-    turn_south();
+// Functions for moving Charles to certain points in space
+void walk_to_facing_wall() {
+  // Function will continue straight ahead, skipping balls, and move safely to the wall Charles is facing
+  while(!in_front_of_wall()) {
     step();
-    turn_west();
+  }
 }
 
-void walk_to_first_ball_in_sight(){
-    while(!on_ball())
-        step();
+void move_down() {
+  // Function will move Charles down one line.
+  face_south();
+  step();
 }
 
-// Functions for checking the state of Charles
-bool row_contains_ball(){
-    // We cannot be sure that there is going to be a ball on the first row, as the problem does not specify it 
-    // - "You can assume that each horizontal line of balls contains no holes."
-    // - "You can also assume that there are no ‘empty’ horizontal lines in between horizontal lines of balls. "
-    while(!in_front_of_wall()){
-        if(on_ball())
-            return true;
-        step();
+void walk_to_beginning_of_next_line() {
+  // Function will move Charles to the start of the next line.
+  move_down();
+  face_east();
+  walk_to_facing_wall();
+}
+
+void walk_to_start() {
+  // Walk Charles to origin cell
+  face_north();
+  walk_to_facing_wall();
+  face_west();
+  walk_to_facing_wall();
+  face_east(); // Make Charles face east like in the beginning.
+}
+
+void find_ball_on_line() {
+  // Function will move Charles along line, until a cell with a ball in it is found.
+  while(!on_ball()) {
+    step();
+  }
+}
+
+// Functions for making Charles do something other than just walking
+void grab_every_available_ball_on_line() {
+  //We assume we are at the east wall, facing east.
+  face_west();
+  while(on_ball()) { // Move along until no more balls are available
+    get_ball();
+    if (!in_front_of_wall()) { // Only go to next cell if that doesn't make Charles run into a wall.
+      step();
     }
-    return false;
-}
-
-bool next_to_wall(){
-    turn_right();
-    return in_front_of_wall();
-}
-
-// Functions for making Charles do something
-void grab_every_available_ball_on_line(){
-    // We assume we are at the East wall, facing East
-    turn_west();
-    while(on_ball()){
-        get_ball();
-        step();
-    }
-
-    turn_east();
-    walk_to_facing_wall();
+  }
 }
