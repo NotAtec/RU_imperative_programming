@@ -1,3 +1,10 @@
+/********************************************************************
+    Course: Imperative Programming - Assignment 5
+    Authors: Jeroen Brinkhorst [S1101799]
+             Andrei Ujica [S1102725]
+    Date: 9.10.2022
+********************************************************************/
+
 #include <cassert> // for assertion checking
 #include <fstream> // for file I/O
 #include <iostream>
