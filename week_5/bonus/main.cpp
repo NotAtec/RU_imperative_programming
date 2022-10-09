@@ -132,8 +132,7 @@ bool user_decryption_confirmation(string& sentence){
 
 char decrypt_char (char a, int r){
   // pre-condition:
-  assert (a <= 128);
-  assert (a >= 0);
+  assert( r > 0 && r <= 65536);
   /* post-condition:
      Character a is rotated by r
   */ 
@@ -196,7 +195,7 @@ void use_otp(const string INPUT_FILE, const string OUTPUT_FILE, int r)
   initialise_pseudo_random(r);
   
   infile.open(INPUT_FILE);
-  outfile.open(OUTPUT_FILE);
+  outfile.open(OUTPUT_FILE, fstream::out);
 
   while (infile.get(c))
     outfile.put(decrypt_char(c, next_pseudo_random_number()));
