@@ -149,15 +149,51 @@ void show_universe(Cell universe[NO_OF_ROWS][NO_OF_COLUMNS]) {
   }
 }
 
+// Helper Part 3:
+void add_neighbour(Cell universe[NO_OF_ROWS][NO_OF_COLUMNS], int x, int y, int &sum) {
+  if(cell_at(universe, x, y) == Live)
+    sum++;
+}
+
 //  Part 3: the next generation
-void next_generation (Cell now [NO_OF_ROWS][NO_OF_COLUMNS], Cell next [NO_OF_ROWS][NO_OF_COLUMNS])
-{
-    // pre-conditions, post-conditions, implementation
+void next_generation(Cell now[NO_OF_ROWS][NO_OF_COLUMNS],
+                     Cell next[NO_OF_ROWS][NO_OF_COLUMNS]) {
+  // Pre-Condition:
+  assert(true);
+  // Post-Condition: Next generation of universe is generated to second array
+
+  for (int row = 0; row < NO_OF_ROWS; row++) {
+    for(int col = 0; col < NO_OF_COLUMNS; col++) {
+      // Get all alive neighbours
+      int alive_neighbours = 0;
+      int x = row -1;
+      int y = col -1;
+      
+      add_neighbour(now, x, y, alive_neighbours);
+      y++;
+      add_neighbour(now, x, y, alive_neighbours);
+      y++;
+      add_neighbour(now, x, y, alive_neighbours);
+      x++;
+      add_neighbour(now, x, y, alive_neighbours);
+      y = y - 2;
+      add_neighbour(now, x, y, alive_neighbours);
+      x++;
+      add_neighbour(now, x, y, alive_neighbours);
+      y++;
+      add_neighbour(now, x, y, alive_neighbours);
+      y++;
+      add_neighbour(now, x, y, alive_neighbours);
+
+      // Apply rules
+      if(alive_neighbours == 3 || (alive_neighbours == 2 && cell_at(now, row, col) == Live))
+        next[row][col] = Live;
+      else
+        next[row][col] = Dead;
+    }
+  }
 }
 
 #ifndef TESTING
-int main ()
-{
-    return 0;
-}
+int main() { return 0; }
 #endif
