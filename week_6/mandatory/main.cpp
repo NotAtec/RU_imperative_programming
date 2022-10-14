@@ -151,6 +151,9 @@ void show_universe(Cell universe[NO_OF_ROWS][NO_OF_COLUMNS]) {
 
 // Helper Part 3:
 void add_neighbour(Cell universe[NO_OF_ROWS][NO_OF_COLUMNS], int x, int y, int &sum) {
+  // Pre-Condition:
+  assert(x > -1 && x < NO_OF_ROWS + 1 && y > -1 && y < NO_OF_COLUMNS + 1);
+  // Post-condition: One is added to the rolling count if a cell is found to be alive. 
   if(cell_at(universe, x, y) == Live)
     sum++;
 }
