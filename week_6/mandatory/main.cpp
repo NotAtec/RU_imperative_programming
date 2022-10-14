@@ -195,5 +195,14 @@ void next_generation(Cell now[NO_OF_ROWS][NO_OF_COLUMNS],
 }
 
 #ifndef TESTING
-int main() { return 0; }
+int main() { 
+  Cell universe[NO_OF_ROWS][NO_OF_COLUMNS];
+  Cell step[NO_OF_ROWS][NO_OF_COLUMNS];
+
+  read_universe_file("glider0.txt", universe);
+
+  show_universe(universe);
+  next_generation(universe, step);
+  show_universe(step);
+}
 #endif
