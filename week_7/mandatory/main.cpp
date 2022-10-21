@@ -1,3 +1,10 @@
+/********************************************************************
+    Course: Imperative Programming - Assignment 7
+    Authors: Jeroen Brinkhorst [S1101799]
+             Andrei Ujica [S1102725]
+    Date: 21.10.2022
+********************************************************************/
+
 #include <cassert>
 #include <cstring>
 #include <fstream>
@@ -6,11 +13,19 @@
 
 using namespace std;
 
+/********************************************************************
+    Global Variable Definitions
+********************************************************************/
+
 const int MAX_NO_OF_WORDS = 25000;
 // the maximum number of words to read from a text file
 
 string content[MAX_NO_OF_WORDS] = {};
 // the read content of a text file (at most MAX_NO_OF_WORDS words)
+
+/********************************************************************
+    Helper Functions
+********************************************************************/
 
 bool read_word(ifstream &infile, string &word) { // precondition:
   assert(infile.is_open());
@@ -22,6 +37,37 @@ bool read_word(ifstream &infile, string &word) { // precondition:
   infile >> word;
   return !infile.fail();
 }
+
+int helper_sequence(string sequence[10], string seq_string) {
+  // pre-condition
+  assert(true);
+  /** post-condition
+   *  This method converts from string to array, for use in the commands.
+   * Returns the count of words in sequence.
+   */
+
+  string word = "";
+  int seq_counter = 0;
+
+  for (auto x : seq_string) {
+    if (x == ' ' || x == '\0') {
+      sequence[seq_counter] = word;
+      seq_counter++;
+      word = "";
+    } else
+      word += x;
+  }
+  sequence[seq_counter] = word;
+
+  for (int i = 0; i < seq_counter + 1; i++)
+    cout << sequence[i] << endl;
+
+  return seq_counter + 1;
+}
+
+/********************************************************************
+    Commands
+********************************************************************/
 
 int enter_command(string filename) { // precondition:
   assert(true);
@@ -85,35 +131,12 @@ int count_command(string content[], int no_of_words, string terms[],
   return counter;
 }
 
-int helper_sequence(string command, string content[], int word_count,
-                    string sequence[10], string seq_string) {
-  // pre-condition
-  assert(true);
-  /** post-condition
-   *  This method converts from string to array, for use in the commands. Returns the string.
-   */
-
-  string word = "";
-  int seq_counter = 0;
-
-  for (auto x : seq_string) {
-    if (x == ' ' || x == '\0') {
-      sequence[seq_counter] = word;
-      seq_counter++;
-      word = "";
-    } else
-      word += x;
-  }
-  sequence[seq_counter] = word;
-
-  for (int i = 0; i < seq_counter + 1; i++)
-    cout << sequence[i] << endl;
-
-  return seq_counter;
-}
-
 string where_command(string content[], int no_of_words, string terms[],
                      int no_of_terms, int &count) {
+  assert(no_of_words >= 0 && no_of_terms >= 0);
+  // Post-condition: Result is a string of indices, separated by spaces. Each
+  // index is the first index of an occurency of a word-sequence `terms`If there
+  // are no found indices, the string remains empty.
   bool flag = false;
   string indices;
   int temp;
@@ -139,6 +162,47 @@ string where_command(string content[], int no_of_words, string terms[],
   return indices;
 }
 
+/********************************************************************
+    Command Processing
+********************************************************************/
+
+void enter_helper(int word_count) {
+  cout << "\tThis file contains " + to_string(word_count) + " words.";
+  if (word_count == MAX_NO_OF_WORDS) {
+    cout << "[BufferError]: Buffer exceeded. Could not read all file "
+            "data.\n";
+  }
+}
+
+void content_helper(int word_count) {
+  cout << "\t";
+  for (int i = 0; i < word_count; i++)
+    cout << content[i] << " ";
+}
+
+void count_helper(string command, int word_count) {
+  string seq_string = command.substr(command.find(" ") + 1);
+  string sequence[10] = {};
+
+  int seq_count = count_command(content, word_count, sequence,
+                                helper_sequence(sequence, seq_string));
+
+  cout << "\tThe sequence `" << seq_string << "` has been seen " << seq_count
+       << " times";
+}
+
+void where_helper(string command, int word_count) {
+  string seq_string = command.substr(command.find(" ") + 1);
+  string sequence[10] = {};
+  int count = 0;
+
+  string indices = where_command(content, word_count, sequence,
+                                 helper_sequence(sequence, seq_string), count);
+
+  cout << "\tThe sequence `" << seq_string << "` is seen at indices:" << indices
+       << " and has been seen " << count << " times.";
+}
+
 #ifndef TESTING
 int main() {
   string filename = "";
@@ -152,44 +216,16 @@ int main() {
     cout << "\nPlease enter a command: \n(user@ip_week_7)$: ";
     getline(cin, command);
 
-    if (command == "enter " + filename) {
-      cout << "\tThis file contains " + to_string(word_count) + " words.";
-      if (word_count == MAX_NO_OF_WORDS) {
-        cout << "[BufferError]: Buffer exceeded. Could not read all file "
-                "data.\n";
-      }
-    } else if (command == "content") {
-      cout << "\t";
-      for (int i = 0; i < word_count; i++)
-        cout << content[i] << " ";
-    } else if (command.find("count") != string::npos) {
-      string seq_string = command.substr(command.find(" ") + 1);
-      string sequence[10] = {};
-
-      int seq_counter =
-          helper_sequence(command, content, word_count, sequence, seq_string);
-      int seq_count =
-          count_command(content, word_count, sequence, seq_counter + 1);
-
-      cout << "\tThe sequence `" << seq_string << "` has been seen "
-           << seq_count << " times";
-    } else if (command.find("where") != string::npos) {
-      string seq_string = command.substr(command.find(" ") + 1);
-      string sequence[10] = {};
-      int count = 0;
-
-      int seq_counter =
-          helper_sequence(command, content, word_count, sequence, seq_string);
-      string indices =
-          where_command(content, word_count, sequence, seq_counter + 1, count);
-
-      cout << "\tThe sequence `" << seq_string
-           << "` is seen at indices:" << indices << " and has been seen "
-           << count << " times.";
-    }
+    if (command == "enter " + filename)
+      enter_helper(word_count);
+    else if (command == "content")
+      content_helper(word_count);
+    else if (command.find("count") != string::npos)
+      count_helper(command, word_count);
+    else if (command.find("where") != string::npos)
+      where_helper(command, word_count);
 
     cin.clear();
   } while (command != "stop");
-  return 0;
 }
 #endif
