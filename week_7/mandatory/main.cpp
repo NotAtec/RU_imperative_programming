@@ -162,6 +162,9 @@ string where_command(string content[], int no_of_words, string terms[],
   return indices;
 }
 
+string context_command() {
+
+}
 /********************************************************************
     Command Processing
 ********************************************************************/
@@ -203,6 +206,26 @@ void where_helper(string command, int word_count) {
        << " and has been seen " << count << " times.";
 }
 
+void context_helper(string command, int word_count) {
+  string seq_string = command.erase(0, command.find(" "));
+  int m = stoi(seq_string.substr(0, seq_string.find(" ")));
+  seq_string = seq_string.erase(0, command.find(" "));
+  string sequence[10] = {};
+  int count = 0;
+
+  string indices = where_command(content, word_count, sequence,
+                                 helper_sequence(sequence, seq_string), count);
+
+  // Grab all indices from string
+  // For all indices:
+  // Get context (pos - m to pos - 1 ) before
+  // Print context before
+  // Print sequence
+  // Get context (pos + 1 to pos + m) after
+  // Print context after
+  // Next index.
+}
+
 #ifndef TESTING
 int main() {
   string filename = "";
@@ -224,6 +247,8 @@ int main() {
       count_helper(command, word_count);
     else if (command.find("where") != string::npos)
       where_helper(command, word_count);
+    else if (command.find("context") != string::npos)
+      context_helper(command, word_count);
 
     cin.clear();
   } while (command != "stop");
