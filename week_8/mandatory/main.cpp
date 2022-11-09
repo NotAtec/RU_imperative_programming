@@ -125,7 +125,18 @@ istream &operator>>(istream &in, Track &track) { // Precondition:
      the corresponding members of track. The following (empty) line from in has
      also been read.
   */
-  // implement this function
+
+  getline(in, track.artist);
+  getline(in, track.cd);
+  in >> track.year >> track.track;
+  in.ignore();
+  getline(in, track.title);
+  getline(in, track.tags);
+  in >> track.time;
+  in.ignore();
+  getline(in, track.country);
+  in.ignore();
+
   return in;
 }
 
@@ -186,6 +197,7 @@ int match_artists(const vector<Track> &tracks, string artist, bool display) {
     if (match(artist, current.artist) &&
         !find_string(artists, current.artist)) {
       artists.push_back(current.artist);
+
       if (display)
         show_track(current, def, cout);
       count++;
