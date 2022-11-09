@@ -97,7 +97,22 @@ void show_track(Track track, TrackDisplay lt, ostream &os) { // Precondition:
       only the members of track are shown for which the corresponding member in
      lt is true.
   */
-  // implement this function
+  if (lt.showArtist)
+    os << track.artist;
+  if (lt.showAlbum)
+    os << track.cd;
+  if (lt.showYear)
+    os << track.year;
+  if (lt.showTrack)
+    os << track.track;
+  if (lt.showTitle)
+    os << track.title;
+  if (lt.showTags)
+    os << track.tags;
+  if (lt.showLength)
+    os << track.time;
+  if (lt.showCountry)
+    os << track.country;
 }
 
 istream &operator>>(istream &in, Track &track) { // Precondition:
