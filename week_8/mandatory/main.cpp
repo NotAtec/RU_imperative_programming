@@ -87,7 +87,7 @@ Length operator+(const Length &a, const Length &b) { // Precondition:
     sum.minutes++;
     sum.seconds -= 60;
   }
-  // implement this function
+
   return sum;
 }
 
@@ -95,24 +95,24 @@ void show_track(Track track, TrackDisplay lt, ostream &os) { // Precondition:
   assert(true);
   /*  Postcondition:
       only the members of track are shown for which the corresponding member in
-     lt is true.
+      lt is true.
   */
   if (lt.showArtist)
-    os << track.artist;
+    os << track.artist << endl;
   if (lt.showAlbum)
-    os << track.cd;
+    os << track.cd << endl;
   if (lt.showYear)
-    os << track.year;
+    os << track.year << endl;
   if (lt.showTrack)
-    os << track.track;
+    os << track.track << endl;
   if (lt.showTitle)
-    os << track.title;
+    os << track.title << endl;
   if (lt.showTags)
-    os << track.tags;
+    os << track.tags << endl;
   if (lt.showLength)
-    os << track.time;
+    os << track.time << endl;
   if (lt.showCountry)
-    os << track.country;
+    os << track.country << endl;
 }
 
 istream &operator>>(istream &in, Track &track) { // Precondition:
@@ -125,10 +125,23 @@ istream &operator>>(istream &in, Track &track) { // Precondition:
   // implement this function
   return in;
 }
+int size(const vector<Track> &v) { return static_cast<int>(v.size()); }
 
 int match_tracks(const vector<Track> &tracks, string track, bool display) {
-  // implement this function
-  return 0;
+  const TrackDisplay def = {true, true, true, true, true, true, true, true};
+  int count = 0;
+
+  for (int i = 0; i < size(tracks); i++) {
+    const Track current = tracks.at(i);
+
+    if (match(track, current.title)) {
+      if (display)
+        show_track(current, def, cout);
+      
+      count++;
+    }
+  }
+  return count;
 }
 
 int match_artists(const vector<Track> &tracks, string artist, bool display) {
