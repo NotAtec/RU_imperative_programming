@@ -1,3 +1,10 @@
+/********************************************************************
+    Course: Imperative Programming - Assignment 8
+    Authors: Jeroen Brinkhorst [S1101799]
+             Andrei Ujica [S1102725]
+    Date: 09.11.2022
+********************************************************************/
+
 #include <cassert>
 #include <fstream>
 #include <iostream>
@@ -5,6 +12,10 @@
 #include <vector>
 
 using namespace std;
+
+/********************************************************************
+    Global Variable Definitions
+********************************************************************/
 
 struct Length {
   int minutes; // #minutes (0..)
@@ -33,6 +44,10 @@ struct TrackDisplay {
   bool showCountry; // if true, show countr(y/ies) of artist
 };
 
+/********************************************************************
+    Helper Functions
+********************************************************************/
+
 int size(const vector<Track> &v) { return static_cast<int>(v.size()); }
 int size(const vector<string> &v) { return static_cast<int>(v.size()); }
 
@@ -44,6 +59,24 @@ bool match(string sub, string source) { // Precondition:
   */
   return source.find(sub) != string::npos;
 }
+
+bool find_string(const vector<string> &strings, string string) {
+  // Precondition:
+  assert(string != "");
+  /* Postcondition: true is returned if the string is found in the list of
+   * strings, false is returned if it is not.
+   */
+  for (int i = 0; i < size(strings); i++) {
+    if (strings.at(i) == string)
+      return true;
+  }
+
+  return false;
+}
+
+/********************************************************************
+    Overloads
+********************************************************************/
 
 ostream &operator<<(ostream &out, const Length length) {
   // Precondition:
@@ -94,6 +127,32 @@ Length operator+(const Length &a, const Length &b) { // Precondition:
   return sum;
 }
 
+istream &operator>>(istream &in, Track &track) { // Precondition:
+  assert(true);
+  /*  Postcondition:
+      the content of the first 8 lines from in have been read and are stored in
+     the corresponding members of track. The following (empty) line from in has
+     also been read.
+  */
+
+  getline(in, track.artist);
+  getline(in, track.cd);
+  in >> track.year >> track.track;
+  in.ignore();
+  getline(in, track.title);
+  getline(in, track.tags);
+  in >> track.time;
+  in.ignore();
+  getline(in, track.country);
+  in.ignore();
+
+  return in;
+}
+
+/********************************************************************
+    Database processing
+********************************************************************/
+
 void show_track(Track track, TrackDisplay lt, ostream &os) { // Precondition:
   assert(true);
   /*  Postcondition:
@@ -118,28 +177,6 @@ void show_track(Track track, TrackDisplay lt, ostream &os) { // Precondition:
     os << track.country << endl;
 }
 
-istream &operator>>(istream &in, Track &track) { // Precondition:
-  assert(true);
-  /*  Postcondition:
-      the content of the first 8 lines from in have been read and are stored in
-     the corresponding members of track. The following (empty) line from in has
-     also been read.
-  */
-
-  getline(in, track.artist);
-  getline(in, track.cd);
-  in >> track.year >> track.track;
-  in.ignore();
-  getline(in, track.title);
-  getline(in, track.tags);
-  in >> track.time;
-  in.ignore();
-  getline(in, track.country);
-  in.ignore();
-
-  return in;
-}
-
 int match_tracks(const vector<Track> &tracks, string track, bool display) {
   // Precondition:
   assert(true);
@@ -162,20 +199,6 @@ int match_tracks(const vector<Track> &tracks, string track, bool display) {
     }
   }
   return count;
-}
-
-bool find_string(const vector<string> &strings, string string) {
-  // Precondition:
-  assert(string != "");
-  /* Postcondition: true is returned if the string is found in the list of
-   * strings, false is returned if it is not.
-   */
-  for (int i = 0; i < size(strings); i++) {
-    if (strings.at(i) == string)
-      return true;
-  }
-
-  return false;
 }
 
 int match_artists(const vector<Track> &tracks, string artist, bool display) {
