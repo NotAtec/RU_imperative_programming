@@ -193,8 +193,30 @@ int match_artists(const vector<Track> &tracks, string artist, bool display) {
 }
 
 int match_cds(const vector<Track> &tracks, string artist, bool display) {
-  // implement this function
-  return 0;
+  assert(true);
+  /* Postcondition: The vector tracks is iterated over, and if the string under
+   * var 'artist' is found in the track artist name, and the accompanying cd is
+   * found for the first time, count is increased. If display = T, artistname,
+   * albumname & year of publication is output to cout.
+   */
+
+  const TrackDisplay def = {true,  true,  true,  false,
+                            false, false, false, false};
+  vector<string> albums;
+  int count = 0;
+
+  for (int i = 0; i < size(tracks); i++) {
+    const Track current = tracks.at(i);
+
+    if (match(artist, current.artist) && !find_string(albums, current.cd)) {
+      albums.push_back(current.cd);
+      if (display)
+        show_track(current, def, cout);
+      count++;
+    }
+  }
+
+  return count;
 }
 
 int number_of_cds(const vector<Track> &tracks) {
