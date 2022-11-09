@@ -42,7 +42,8 @@ bool match(string sub, string source) { // Precondition:
   return source.find(sub) != string::npos;
 }
 
-ostream &operator<<(ostream &out, const Length length) { // Precondition:
+ostream &operator<<(ostream &out, const Length length) {
+  // Precondition:
   assert(true);
   /*  Postcondition:
       the value of length is shown via out in the format: minutes, ':', seconds
@@ -59,13 +60,17 @@ ostream &operator<<(ostream &out, const Length length) { // Precondition:
   return out;
 }
 
-istream &operator>>(istream &in, Length &length) { // Precondition:
+istream &operator>>(istream &in, Length &length) {
+  // Precondition:
   assert(true);
   /*  Postcondition:
       the value of length has been read from in: first minutes, then ':', then
      seconds
   */
-  // implement this function
+  char temp;
+
+  in >> length.minutes >> temp >> length.seconds;
+  
   return in;
 }
 
