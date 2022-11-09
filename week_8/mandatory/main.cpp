@@ -262,8 +262,28 @@ int read_tracks(string filename, vector<Track> &tracks,
      filename, and result is the number of tracks that have been read. Only if
      show_content, then all read tracks are shown on screen.
   */
-  // implement this function
-  return 0;
+  int count = 0;
+
+  ifstream data(filename, ifstream::in);
+
+  while (!data.eof()) {
+    Track temp;
+    data >> temp;
+    tracks.push_back(temp);
+    count++;
+    if (show_content)
+      show_track(temp,
+                 TrackDisplay{true, true, true, true, true, true, true, true},
+                 cout);
+  }
+
+  // Clean up data, last is removed due to the structuring of files with 2 \n at
+  // end. Last count is removed due to same reason, it will do the entire
+  // procedure once too many.
+  tracks.pop_back();
+  count--;
+
+  return count;
 }
 
 #ifndef TESTING
