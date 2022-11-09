@@ -70,7 +70,7 @@ istream &operator>>(istream &in, Length &length) {
   char temp;
 
   in >> length.minutes >> temp >> length.seconds;
-  
+
   return in;
 }
 
@@ -80,8 +80,15 @@ Length operator+(const Length &a, const Length &b) { // Precondition:
   /*  Postcondition:
       Result is the sum of a and b.
   */
+
+  Length sum = {a.minutes + b.minutes, a.seconds + b.seconds};
+
+  if (sum.seconds >= 60) {
+    sum.minutes++;
+    sum.seconds -= 60;
+  }
   // implement this function
-  return {};
+  return sum;
 }
 
 void show_track(Track track, TrackDisplay lt, ostream &os) { // Precondition:
