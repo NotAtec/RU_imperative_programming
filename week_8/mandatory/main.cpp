@@ -33,6 +33,9 @@ struct TrackDisplay {
   bool showCountry; // if true, show countr(y/ies) of artist
 };
 
+int size(const vector<Track> &v) { return static_cast<int>(v.size()); }
+int size(const vector<string> &v) { return static_cast<int>(v.size()); }
+
 bool match(string sub, string source) { // Precondition:
   assert(true);
   /*  Postcondition:
@@ -125,9 +128,14 @@ istream &operator>>(istream &in, Track &track) { // Precondition:
   // implement this function
   return in;
 }
-int size(const vector<Track> &v) { return static_cast<int>(v.size()); }
 
 int match_tracks(const vector<Track> &tracks, string track, bool display) {
+  assert(true);
+  /* Postcondition: The vector tracks is iterated over, and all cases where the
+   * string 'track' is in the title, count is increased. Count is returned at
+   * the end. If 'display' = T, track details are output to screen.
+   */
+
   const TrackDisplay def = {true, true, true, true, true, true, true, true};
   int count = 0;
 
@@ -137,16 +145,51 @@ int match_tracks(const vector<Track> &tracks, string track, bool display) {
     if (match(track, current.title)) {
       if (display)
         show_track(current, def, cout);
-      
+
       count++;
     }
   }
   return count;
 }
 
+bool find_artist(const vector<string> &artists, string artist) {
+  assert(artist != "");
+  /* Postcondition: true is returned if the artist is found in the list of
+   * artists, false is returned if it is not.
+   */
+  for (int i = 0; i < size(artists); i++) {
+    if (artists.at(i) == artist)
+      return true;
+  }
+
+  return false;
+}
+
 int match_artists(const vector<Track> &tracks, string artist, bool display) {
-  // implement this function
-  return 0;
+  assert(true);
+  /* Postcondition: The vector tracks is iterated over, and if the string under
+   * var 'artist' is found in the track artist name for the first time, count is
+   * increased. If 'display' = T, artist name will be output to cout.
+   */
+
+  const TrackDisplay def = {true,  false, false, false,
+                            false, false, false, false};
+  vector<string> artists;
+  int count = 0;
+
+  for (int i = 0; i < size(tracks); i++) {
+    const Track current = tracks.at(i);
+
+    if (match(artist, current.artist) &&
+        !find_artist(artists, current.artist)) {
+      artists.push_back(current.artist);
+      if (display)
+        show_track(current, def, cout);
+      count++;
+    }
+  }
+
+  return count;
 }
 
 int match_cds(const vector<Track> &tracks, string artist, bool display) {
