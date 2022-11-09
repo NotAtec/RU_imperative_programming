@@ -152,13 +152,13 @@ int match_tracks(const vector<Track> &tracks, string track, bool display) {
   return count;
 }
 
-bool find_artist(const vector<string> &artists, string artist) {
-  assert(artist != "");
-  /* Postcondition: true is returned if the artist is found in the list of
-   * artists, false is returned if it is not.
+bool find_string(const vector<string> &strings, string string) {
+  assert(string != "");
+  /* Postcondition: true is returned if the string is found in the list of
+   * strings, false is returned if it is not.
    */
-  for (int i = 0; i < size(artists); i++) {
-    if (artists.at(i) == artist)
+  for (int i = 0; i < size(strings); i++) {
+    if (strings.at(i) == string)
       return true;
   }
 
@@ -181,7 +181,7 @@ int match_artists(const vector<Track> &tracks, string artist, bool display) {
     const Track current = tracks.at(i);
 
     if (match(artist, current.artist) &&
-        !find_artist(artists, current.artist)) {
+        !find_string(artists, current.artist)) {
       artists.push_back(current.artist);
       if (display)
         show_track(current, def, cout);
