@@ -130,6 +130,7 @@ istream &operator>>(istream &in, Track &track) { // Precondition:
 }
 
 int match_tracks(const vector<Track> &tracks, string track, bool display) {
+  // Precondition:
   assert(true);
   /* Postcondition: The vector tracks is iterated over, and all cases where the
    * string 'track' is in the title, count is increased. Count is returned at
@@ -153,6 +154,7 @@ int match_tracks(const vector<Track> &tracks, string track, bool display) {
 }
 
 bool find_string(const vector<string> &strings, string string) {
+  // Precondition:
   assert(string != "");
   /* Postcondition: true is returned if the string is found in the list of
    * strings, false is returned if it is not.
@@ -166,6 +168,7 @@ bool find_string(const vector<string> &strings, string string) {
 }
 
 int match_artists(const vector<Track> &tracks, string artist, bool display) {
+  // Precondition:
   assert(true);
   /* Postcondition: The vector tracks is iterated over, and if the string under
    * var 'artist' is found in the track artist name for the first time, count is
@@ -193,6 +196,7 @@ int match_artists(const vector<Track> &tracks, string artist, bool display) {
 }
 
 int match_cds(const vector<Track> &tracks, string artist, bool display) {
+  // Precondition:
   assert(true);
   /* Postcondition: The vector tracks is iterated over, and if the string under
    * var 'artist' is found in the track artist name, and the accompanying cd is
@@ -220,8 +224,22 @@ int match_cds(const vector<Track> &tracks, string artist, bool display) {
 }
 
 int number_of_cds(const vector<Track> &tracks) {
-  // implement this function
-  return 0;
+  // Precondition:
+  assert(true);
+  /* Postcondition: */
+
+  vector<string> albums;
+  int count = 0;
+
+  for (int i = 0; i < size(tracks); i++) {
+    const Track current = tracks.at(i);
+    if (!find_string(albums, current.cd)) {
+      albums.push_back(current.cd);
+      count++;
+    }
+  }
+
+  return count;
 }
 
 int read_tracks(string filename, vector<Track> &tracks,
