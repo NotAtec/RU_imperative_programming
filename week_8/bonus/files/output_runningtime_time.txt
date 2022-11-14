@@ -1,0 +1,16 @@
+> runningtime time
+artist: Afro Celt Sound System album: Volume 3: Further in time
+Running time album: 70:41
+artist: Amorphis album: Queen of time
+Running time album: 57:33
+artist: Dream Theater album: Distance over time
+Running time album: 60:54
+artist: Dream Theater album: Once in a livetime
+Running time album: 154:09
+artist: Ludovico Einaudi album: In a time lapse
+Running time album: 66:21
+artist: R.E.M. album: Out of time
+Running time album: 43:40
+artist: The Gathering album: Nighttime birds
+Running time album: 48:24
+Number of found artists: 7
