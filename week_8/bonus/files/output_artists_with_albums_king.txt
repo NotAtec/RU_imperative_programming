@@ -1,0 +1,6 @@
+> artist? king
+artist: King Crimson album: In the court of the crimson king
+artist: Peter Gabriel album: Shaking the tree (Sixteen golden hits)
+artist: Radiohead album: The king of limbs
+artist: Roger Waters album: The pros and cons of hitch hiking
+Number of found artists: 4

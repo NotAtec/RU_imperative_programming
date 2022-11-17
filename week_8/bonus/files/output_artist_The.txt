@@ -1,0 +1,23 @@
+> artist The
+artist: And You Will Know Us By The Trail Of Dead
+artist: Dream Theater
+artist: The Alan Parsons Project
+artist: The Allman brothers band
+artist: The Black Keys
+artist: The Boo Radleys
+artist: The Clash
+artist: The Comet Is Coming
+artist: The Corrs
+artist: The Cranberries
+artist: The Flower Kings
+artist: The Gathering
+artist: The Rolling Stones
+artist: The black noodle project
+artist: The church
+artist: The decemberists
+artist: The flaming lips
+artist: The golden palominos
+artist: The naked sweat drips
+artist: The stills
+artist: The war on drugs
+Number of found artists: 21

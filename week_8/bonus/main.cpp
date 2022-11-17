@@ -1,8 +1,8 @@
 /********************************************************************
-    Course: Imperative Programming - Assignment 8
+    Course: Imperative Programming - Bonus Assignment 8
     Authors: Jeroen Brinkhorst [S1101799]
              Andrei Ujica [S1102725]
-    Date: 09.11.2022
+    Date: 14.11.2022
 ********************************************************************/
 
 #include <cassert>
@@ -192,8 +192,10 @@ int match_tracks(const vector<Track> &tracks, string track, bool display) {
     const Track current = tracks.at(i);
 
     if (match(track, current.title)) {
-      if (display)
+      if (display){
         show_track(current, def, cout);
+        cout << endl;
+      }
 
       count++;
     }
@@ -221,8 +223,10 @@ int match_artists(const vector<Track> &tracks, string artist, bool display) {
         !find_string(artists, current.artist)) {
       artists.push_back(current.artist);
 
-      if (display)
+      if (display){
         show_track(current, def, cout);
+        cout << endl;
+      }
       count++;
     }
   }
@@ -309,15 +313,90 @@ int read_tracks(string filename, vector<Track> &tracks,
   return count;
 }
 
+/********************************************************************
+    CLI Methods
+********************************************************************/
+
+void track_track(vector<Track> &tracks, string track) {
+    // Precondition:
+    assert(true);
+    /* Postcondition
+       All tracks that match the title given by user are outputted
+    */ 
+
+    int no_of_matches = match_tracks(tracks, track, true);
+    cout << "Number of found tracks: " << no_of_matches;
+}
+
+void artist_artist(vector<Track> &tracks, string artist) {
+    // Precondition:
+    assert(true);
+    /* Postcondition
+       All artists that match the input given by user are outputted
+    */ 
+
+    int no_of_matches = match_artists(tracks, artist, true);
+    cout << "Number of found artists: " << no_of_matches;
+}
+
+void cds_artist(vector<Track> &tracks, string artist) {
+    // Precondition:
+    assert(true);
+    /* Postcondition
+       All artists that match the input given by user are outputted
+    */ 
+
+    int no_of_matches = match_cds(tracks, artist, true);
+    cout << "Number of found cds: " << no_of_matches;
+}
+
+void cds(vector<Track> &tracks) {
+    // Precondition:
+    assert(true);
+    /* Postcondition
+       The number of albums in the database is outputted
+    */ 
+
+    int no_of_matches = number_of_cds(tracks);
+    cout << "Number of found albums: " << no_of_matches << endl;
+}
+
+void cli(vector<Track> &tracks) {
+    // Precondition
+    assert(!tracks.empty());
+    /* Postcondition
+       The command line interface is printed and reponsive
+    */ 
+
+    string command = "";
+
+    do {
+        cout << "\nPlease enter a command: \n(user@ip_week_8)$: ";
+        getline(cin, command);
+
+        string query = command.substr(command.find(" ") + 1);
+        string method = command.substr(0, command.find(" "));
+
+        if (method == "track")
+            track_track(tracks, query);
+        else if (method == "artist")
+            artist_artist(tracks, query);
+        else if (method == "cds")
+            cds_artist(tracks, query);
+        else if (method == "#cds")
+            cds(tracks);
+        cin.clear();
+  } while (command != "stop");
+}
+
 #ifndef TESTING
-int main() { // Precondition:
-  assert(true);
-  /*  Postcondition:
-      the music database "Tracks.txt" has been read (if present and correctly
-     formatted). The assignment queries have been executed and their result has
-     been shown on screen. In case of the bonus assignment, the user has been
-     able to query the database and has seen the results of these queries.
-  */
-  return 0;
+int main ()
+{   
+    vector<Track> tracks; 
+    read_tracks("Tracks.txt", tracks, false);
+
+    cli(tracks);
+
+    return 0;
 }
 #endif
