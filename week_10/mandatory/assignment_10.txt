@@ -1,0 +1,51 @@
+### PART 1
+
+# Exercise (a)
+The run-time complexity of this algorithm is O(N^3):
+    - three for loops from 0 to N   - O(N^3)
+    - ">>" operator                 - O(1)
+    ----------------------------------------
+    TOTAL:                          O(N^3)
+
+# Exercise (b)
+The run-time complexity of this algorithm is O(LMN):
+    - three for loops from 0 to L, M and N   - O(LMN)
+    - ">>" operator                          - O(1)
+    -------------------------------------------------
+    TOTAL:                                   O(LMN)
+
+# Exercise (c)
+The run-time complexity of this algorithm is O(text.length()) as
+we will be doing at most [text.length()] iterations and all the other 
+operations take O(1)
+
+# Exericse (d)
+The run-time complexity of this algorithm is O(text.length()^2) as
+we will be doing at most [text.length()] iterations and each iteration we
+perform O(text.length()) computations by using strlen.
+
+# Exercise (e)
+The run-time complexity of this algorithm is O(sqrt(x)) as we only go
+from 2 to sqrt(x) and all other operations are constant time
+
+# Exercise (f)
+The run-time of this algorithm is O(length) as we perform [length] iterations
+and the push_back method takes constant time
+
+# Exercise (g)
+The run-time of this algorithm is O(length) as we perform [length] iterations
+and the pop_back and size methods take constant time
+
+# Exercise (h)
+The run-time of this algorithm is O(n*source.size()) as every iteration of the while loop,
+which has a O(n) run-time we perform O(source.size()) operations
+
+# Exercise (i)
+The run-time of this algorithm is O(1) as we only perform constant time operations,
+both size and logical operators are constant time.
+
+### PART 3
+
+The measured result match with my expectations, as selection sort
+is the worst, as its best runtime is still O(N^2), while heap sort is 
+the second worst, with the best worst and average runtime the same at O(NlogN).
